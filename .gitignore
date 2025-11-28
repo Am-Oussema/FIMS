@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / caches
 __pycache__/
 *.pyc
@@ -24,3 +25,31 @@ snapshot.json
 
 # Pytest cache
 .pytest_cache/
+=======
+# Byte-compiled / caches
+__pycache__/
+*.pyc
+
+# Virtual env
+.env/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Snapshots dir (we keep it in repo initially? typically we ignore runtime snapshots)
+src/snapshots/
+snapshot.json
+
+# Logs
+*.log
+
+# Pytest cache
+.pytest_cache/
+>>>>>>> dev
