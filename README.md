@@ -1,4 +1,11 @@
 # FIMS – File Integrity Monitoring System
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Tests](https://img.shields.io/badge/tests-passing-brightgreen)
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![License](https://img.shields.io/badge/license-MIT-yellow)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey)
+![Type](https://img.shields.io/badge/type-CLI_tool-purple)
+
 
 FIMS is a lightweight and efficient tool for detecting changes in files or folders  
 by using **SHA-256 hashing** and comparing snapshots over time.
