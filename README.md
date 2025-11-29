@@ -14,11 +14,12 @@ simple and reliable way to monitor file integrity on their system.
 - 🔍 Compare a directory with its previous snapshot  
 - 🚨 Detect **added**, **removed**, and **modified** files  
 - 🗂 All snapshots stored locally in a JSON format  
-- 🖥️ Can be used from CLI using `fims` or with Python (`python main.py`)  
+- 🖥️ Can be used from CLI using `fims` or with Python (`python main.py`)
+- ⚡ Fast and minimal — no database or heavy dependencies  
 
 ---
 
-## 🚀 Installation
+## 📦 Installation
 
 Clone the repository:
 
@@ -93,14 +94,16 @@ python src/fims/main.py list
 FIMS/
 │   README.md
 │   pyproject.toml
+│   requirements.txt
 │   .gitignore
+│   LICENSE
 │
 ├── src/
 │   └── fims/
-│       │   hashing.py
-│       │   monitor.py
-│       │   storage.py
-│       │   main.py
+│       ├── hashing.py
+│       ├── monitor.py
+│       ├── storage.py
+│       ├── main.py
 │       └── __init__.py
 │
 └── tests/
@@ -126,10 +129,9 @@ See the `LICENSE` file for more information.
 
 ---
 
-## 🙌 Author
+## 👤 Author
 
 **Oussema A.M**  
 GitHub: [Am-Oussema](https://github.com/Am-Oussema)
 
 ---
->>>>>>> dev
