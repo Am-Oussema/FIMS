@@ -52,12 +52,8 @@ def cmd_compare(args):
     print("[*] Loading latest snapshot for folder ...")
     snapshot = load_latest_snapshot_for_folder(folder)
     if snapshot is None:
-        print(
-            "[-] No snapshot found for this folder. Create one first with: "
-        )
-        print(
-            f'    python main.py create --path "{folder}"'
-        )
+        print("[-] No snapshot found for this folder. Create one first with: ")
+        print(f'    python main.py create --path "{folder}"')
         return
     snap_folder = snapshot.get("folder")
     if os.path.abspath(snap_folder) != os.path.abspath(folder):
@@ -85,7 +81,7 @@ def cmd_list(args):
     print("Saved snapshots (most recent first):")
     for s in snaps:
         print(
-            f"- {s.get("file")} (folder={s.get("folder")}, created_at={s.get("created_at")})"
+            f"- {s.get('file')} (folder={s.get('folder')}, created_at={s.get('created_at')})"
         )
 
 
