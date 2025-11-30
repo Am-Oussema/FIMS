@@ -2,25 +2,31 @@
 __pycache__/
 *.pyc
 
-# Virtual env
+# Virtual environments
 .env/
 venv/
 env/
 
-# IDE files
+# IDE project settings
 .vscode/
 .idea/
 
-# OS files
+# OS-generated files
 .DS_Store
 Thumbs.db
-
-# Snapshots dir (we keep it in repo initially? typically we ignore runtime snapshots)
-src/snapshots/
-snapshot.json
 
 # Logs
 *.log
 
 # Pytest cache
 .pytest_cache/
+
+# Snapshots (runtime-generated)
+snapshots/
+src/snapshots/
+*.json
+
+# Build / packaging
+dist/
+build/
+*.egg-info/
