@@ -12,6 +12,10 @@ fims = "fims.main:main"
 dev = [
 	"pytest",
 	"flake8",
+	"black",
+	"isort",
+	"ruff",
+	"pre-commit",
 ]
 
 [build-system]
