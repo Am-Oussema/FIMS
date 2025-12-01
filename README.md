@@ -151,7 +151,7 @@ The workflow (.github/workflows/python-ci.yml) runs on every push or pull reques
 - Unit tests with pytest
 - Linting with flake8
 - Editable install with dev dependencies (.[dev])
-- 
+
 You can view CI runs under the Actions tab on GitHub.
 
 ---
