@@ -147,14 +147,11 @@ python -m pytest -q --basetemp=.pytest_tmp
 This project uses GitHub Actions for automated testing and style checks.
 The workflow (.github/workflows/python-ci.yml) runs on every push or pull request and includes:
 
-Project installation
-
-Unit tests with pytest
-
-Linting with flake8
-
-Editable install with dev dependencies (.[dev])
-
+- Project installation
+- Unit tests with pytest
+- Linting with flake8
+- Editable install with dev dependencies (.[dev])
+- 
 You can view CI runs under the Actions tab on GitHub.
 
 ---
