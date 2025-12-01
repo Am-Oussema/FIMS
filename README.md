@@ -20,7 +20,6 @@ Ideal for developers, students, cybersecurity learners, or anyone needing fast a
 - 🔍 Compare a directory with its previous snapshot  
 - 🚨 Detect **added**, **removed**, and **modified** files  
 - 🗂 All snapshots stored locally in a JSON format  
-- 🖥️ Can be used from CLI using `fims` or with Python (`python main.py`)
 - ⚡ Fast and minimal — no database or heavy dependencies  
 - 🖥️ Cross-platform (Windows & Linux)
 - 🔧 Exposed as a CLI command (fims)
