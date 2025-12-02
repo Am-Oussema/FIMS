@@ -1,6 +1,6 @@
 # FIMS – File Integrity Monitoring System
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Tests](https://img.shields.io/badge/tests-passing-brightgreen)
+[![Python CI (dev)](https://github.com/Am-Oussema/FIMS/actions/workflows/python-ci.yml/badge.svg?branch=dev)](https://github.com/Am-Oussema/FIMS/actions/workflows/python-ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey)
@@ -10,8 +10,7 @@
 FIMS is a lightweight and efficient tool for detecting changes in files or folders  
 by using **SHA-256 hashing** and comparing snapshots over time.
 
-It is designed for developers, students, and cybersecurity beginners who want a
-simple and reliable way to monitor file integrity on their system.
+Ideal for developers, students, cybersecurity learners, or anyone needing fast and simple file change detection.
 
 ---
 
@@ -21,8 +20,9 @@ simple and reliable way to monitor file integrity on their system.
 - 🔍 Compare a directory with its previous snapshot  
 - 🚨 Detect **added**, **removed**, and **modified** files  
 - 🗂 All snapshots stored locally in a JSON format  
-- 🖥️ Can be used from CLI using `fims` or with Python (`python main.py`)
 - ⚡ Fast and minimal — no database or heavy dependencies  
+- 🖥️ Cross-platform (Windows & Linux)
+- 🔧 Exposed as a CLI command (fims)
 
 ---
 
@@ -99,11 +99,10 @@ python src/fims/main.py list
 
 ```
 FIMS/
-│   README.md
-│   pyproject.toml
-│   requirements.txt
-│   .gitignore
-│   LICENSE
+│
+├── .github/
+│   └── workflows/
+│       └── python-ci.yml
 │
 ├── src/
 │   └── fims/
@@ -113,23 +112,51 @@ FIMS/
 │       ├── main.py
 │       └── __init__.py
 │
-└── tests/
-    └── test_hashing.py
+├── tests/
+│   └── test_hashing.py
+│
+├── snapshots/              # Auto-created after first snapshot
+│
+├── .gitignore
+├── .flake8
+├── requirements.txt
+├── pyproject.toml
+├── LICENSE
+└── README.md
+
 ```
 
 ---
 
 ## 🧪 Testing
 
-To run unit tests:
+Run all tests:
 
 ```bash
 pytest
 ```
+Windows developers can use a custom temp directory:
+
+```bash
+python -m pytest -q --basetemp=.pytest_tmp
+```
+---
+
+## 🔁 Continuous Integration (CI)
+
+This project uses GitHub Actions for automated testing and style checks.
+The workflow (.github/workflows/python-ci.yml) runs on every push or pull request and includes:
+
+- Project installation
+- Unit tests with pytest
+- Linting with flake8
+- Editable install with dev dependencies (.[dev])
+
+You can view CI runs under the Actions tab on GitHub.
 
 ---
 
-## 📄 License
+## 📜 License
 
 Distributed under the **MIT License**.  
 See the `LICENSE` file for more information.
