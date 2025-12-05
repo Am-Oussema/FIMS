@@ -1,6 +1,6 @@
 [project]
 name = "fims"
-version = "0.0.0"
+version = "0.1.0"
 description = "FIMS CLI"
 readme = "README.md"
 requires-python = ">=3.10"
