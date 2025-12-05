@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+from importlib.metadata import version
 
 from fims.hashing import scan_folder
 from fims.monitor import compare_snapshots
@@ -102,6 +103,7 @@ def build_parser():
     parser = argparse.ArgumentParser(
         description="FIMS - File Integrity Monitoring System"
     )
+    parser.add_argument("--version", action="version", version=f"FIMS {version('fims')}")
 
     sub = parser.add_subparsers(dest="command", required=True)
 
