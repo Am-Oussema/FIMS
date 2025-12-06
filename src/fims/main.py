@@ -1,77 +1,78 @@
 import argparse
 import json
 import os
+from typing import Any, Dict, List, Optional
 from importlib.metadata import version
 
+from fims.logging_config import logger
 from fims.hashing import scan_folder
 from fims.monitor import compare_snapshots
-from fims.storage import (list_snapshots, load_latest_snapshot_for_folder,
-                          save_snapshot)
+from fims.storage import list_snapshots, load_latest_snapshot_for_folder, save_snapshot
 
 
-def pretty_print_events(events):
+def pretty_print_events(events: List[Dict[str, Any]]) -> None:
     if not events:
-        print("[*] No changes detected.")
+        logger.info("No changes detected.")
         return
 
-    print("\n=== Changes Detected ===")
+    logger.info("=== Changes Detected ===")
     counts = {"created": 0, "deleted": 0, "modified": 0}
     for e in events:
         counts[e["type"]] += 1
-    print(
-        f"CREATED: {counts['created']},MODIFIED: {counts['modified']},DELETED: {counts['deleted']}"
+    logger.info(
+        f"CREATED: {counts['created']}, MODIFIED: {counts['modified']}, DELETED: {counts['deleted']}"
     )
-    print("-" * 156)
+    logger.info("-" * 140)
 
     for e in events:
         t, path = e["type"].upper(), e["path"]
-        print(f"[{t}] {path}")
+        logger.info(f"[{t}] {path}")
 
         if e["type"] == "modified":
-            print(f"    old_hash: {e['old_hash']} -> new_hash: {e['new_hash']}")
-            print(f"    old_size: {e['old_size']} -> new_size: {e['new_size']}")
+            logger.info(f"    old_hash: {e['old_hash']} -> new_hash: {e['new_hash']}")
+            logger.info(f"    old_size: {e['old_size']} -> new_size: {e['new_size']}")
         elif e["type"] == "created":
-            print(f"    hash: {e['new_hash']} size: {e['new_size']}")
+            logger.info(f"    hash: {e['new_hash']} size: {e['new_size']}")
         elif e["type"] == "deleted":
-            print(f"    old_hash: {e['old_hash']} old_size: {e['old_size']}")
+            logger.info(f"    old_hash: {e['old_hash']} old_size: {e['old_size']}")
 
 
-def cmd_create(args):
+def cmd_create(args: argparse.Namespace) -> int:
     folder = args.path
     if not os.path.isdir(folder):
-        print(f"[-] Error: folder '{folder}' does not exist.")
+        logger.error(f"folder '{folder}' does not exist.")
         return 1
 
-    print("[*] Scanning folder for snapshot:", folder)
+    logger.info(f"Scanning folder for snapshot: {folder}")
     files = scan_folder(folder)
     saved = save_snapshot(folder, files)
-    print("[+] Snapshot saved to:", saved)
+    logger.info(f"Snapshot saved to: {saved}")
 
     return 0
 
 
-def cmd_compare(args):
+def cmd_compare(args: argparse.Namespace) -> int:
     folder = args.path
 
     if not os.path.isdir(folder):
-        print(f"[-] Error: folder '{folder}' does not exist.")
+        logger.error(f"folder '{folder}' does not exist.")
         return 1
 
-    print("[*] Loading latest snapshot for folder ...")
+    logger.info("Loading latest snapshot for folder ...")
     snapshot = load_latest_snapshot_for_folder(folder)
 
     if snapshot is None:
-        print("[-] No snapshot found for this folder. Create one first:")
-        print(f'    fims create --path "{folder}"')
+        logger.error("No snapshot found for this folder. Create one first:")
+        logger.info(f'    fims create --path "{folder}"')
         return 1
 
     snap_folder = snapshot.get("folder")
     if os.path.abspath(snap_folder) != os.path.abspath(folder):
-        print("[-] Snapshot does not match folder. Create a new one.")
+        logger.error("Snapshot does not match folder. Create a new one.")
         return 1
 
     old_files = snapshot.get("files", {})
-    print("[*] Scanning current folder ...")
+    logger.info("Scanning current folder ...")
     new_files = scan_folder(folder)
     events = compare_snapshots(old_files, new_files)
     pretty_print_events(events)
@@ -83,27 +84,29 @@ def cmd_compare(args):
     return 0
 
 
-def cmd_list(args):
+def cmd_list(args: argparse.Namespace) -> int:
     snaps = list_snapshots()
 
     if not snaps:
-        print("[*] No snapshots saved yet.")
+        logger.info("No snapshots saved yet.")
         return 0
 
-    print("Saved snapshots (most recent first):")
+    logger.info("Saved snapshots (most recent first):")
     for s in snaps:
-        print(
+        logger.info(
             f"- {s.get('file')} "
             f"(folder={s.get('folder')}, created_at={s.get('created_at')})"
         )
     return 0
 
 
-def build_parser():
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="FIMS - File Integrity Monitoring System"
     )
-    parser.add_argument("--version", action="version", version=f"FIMS {version('fims')}")
+    parser.add_argument(
+        "--version", action="version", version=f"FIMS {version('fims')}"
+    )
 
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -122,13 +125,13 @@ def build_parser():
     return parser
 
 
-def main(argv=None):
+def main(argv: Optional[List[str]] = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     return args.func(args)
 
 
-def cli_entry():
+def cli_entry() -> None:
     import sys
 
     sys.exit(main(sys.argv[1:]))
