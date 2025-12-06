@@ -1,6 +1,7 @@
 import logging
 import sys
 
+
 def setup_logger() -> logging.Logger:
     logger = logging.getLogger("fims")
     if logger.handlers:
