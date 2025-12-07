@@ -93,6 +93,14 @@ Python version:
 python src/fims/main.py list
 ```
 
+## 📝 Logging
+FIMS uses Python's built-in logging module.                        
+Log configuration is located in:
+
+```bash
+src/fims/logging_config.py
+```
+
 ---
 
 ## 📁 Project Structure
@@ -109,20 +117,23 @@ FIMS/
 │       ├── hashing.py
 │       ├── monitor.py
 │       ├── storage.py
+│       ├── logging_config.py
 │       ├── main.py
 │       └── __init__.py
 │
 ├── tests/
-│   └── test_hashing.py
+│   ├── test_hashing.py
+│   ├── test_monitor.py
+│   └── test_storage.py
 │
-├── snapshots/              # Auto-created after first snapshot
+├── snapshots/              # Auto-generated
 │
-├── .gitignore
 ├── .flake8
-├── requirements.txt
-├── pyproject.toml
+├── .gitignore
 ├── LICENSE
-└── README.md
+├── pyproject.toml
+├── README.md
+└── requirements.txt
 
 ```
 
@@ -133,12 +144,12 @@ FIMS/
 Run all tests:
 
 ```bash
-pytest
+pytest -v
 ```
-Windows developers can use a custom temp directory:
+Windows (avoid path conflicts):
 
 ```bash
-python -m pytest -q --basetemp=.pytest_tmp
+pytest -v --basetemp=./tmp
 ```
 ---
 
